@@ -1,0 +1,23 @@
+$outPath = "C:\temp\lektionen2"
+$inFile = "C:\temp\GMATVocabList_ANSI.txt"
+
+$arr = Get-Content $inFile -Encoding Default
+$hTable = @{}
+
+foreach ($a in $arr)
+{
+    $hTable.Add($a, $a)
+}
+
+$name = 0
+while ($hTable.Count -ne 0)
+{
+$select = $hTable.get_Values() | Get-Random -Count 100 
+
+foreach ($s in $select)
+{ 
+    $hTable.Remove($s) 
+    $s | Out-File $outPath\vokabeln_$name.txt -Encoding Default -Append -NoClobber
+}
+$name++
+}
